@@ -13,6 +13,7 @@ type Request struct {
 }
 
 type Response struct {
-	Img  image.Image
-	Body string
+	Img      image.Image
+	TextFile []byte
+	Body     string
 }

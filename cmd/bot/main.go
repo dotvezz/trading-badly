@@ -65,8 +65,12 @@ func handleAll(printLog func(...interface{})) func(s *discordgo.Session, m *disc
 		}
 		resp := &messaging.Response{}
 
+		// Handle direct messages
 		if len(c.Recipients) == 1 && len(c.GuildID) > 0 {
-			request.Handle(req, resp, args...)
+			err = request.Handle(req, resp, args...)
+			if err != nil {
+				printLog(err)
+			}
 		}
 
 		// Handle channel messages if they ping the bot
@@ -74,7 +78,10 @@ func handleAll(printLog func(...interface{})) func(s *discordgo.Session, m *disc
 			pingedUserID := strings.Trim(args[0], "<@!>")
 			if pingedUserID == s.State.User.ID {
 
-				request.Handle(req, resp, args[1:]...)
+				err = request.Handle(req, resp, args[1:]...)
+				if err != nil {
+					printLog(err)
+				}
 			}
 		}
 
@@ -87,6 +94,14 @@ func handleAll(printLog func(...interface{})) func(s *discordgo.Session, m *disc
 				Name:        "attachment.jpg",
 				ContentType: "image/jpg",
 				Reader:      buffer,
+			}
+		}
+
+		if resp.TextFile != nil {
+			responseMessage.File = &discordgo.File{
+				Name:        "attachment.txt",
+				ContentType: "text",
+				Reader:      bytes.NewBuffer(resp.TextFile),
 			}
 		}
 
