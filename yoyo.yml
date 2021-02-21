@@ -1,0 +1,27 @@
+schema:
+  dialect: mysql
+  tables:
+    chart:
+      columns:
+        id:
+          type: bigint
+          unsigned: true
+          primary_key: true
+          auto_increment: true
+        timestamp:
+          type: bigint
+          unsigned: true
+        symbol:
+          type: varchar(6)
+        open:
+          type: decimal(10,5)
+        low:
+          type: decimal(10,5)
+        high:
+          type: decimal(10,5)
+        close:
+          type: decimal(10,5)
+        adj_close:
+          type: decimal(10,5)
+        volume:
+          type: int

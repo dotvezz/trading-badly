@@ -2,10 +2,12 @@ package chart
 
 import (
 	"errors"
-	"github.com/dotvezz/trading-badly/internal/stocks"
 	"image"
 	"image/color"
 	"math"
+
+	gochart "github.com/wcharczuk/go-chart"
+	"github.com/dotvezz/trading-badly/internal/stocks"
 )
 
 func FromTicks(ticks []stocks.Tick, dimensions ...int) (image.Image, error) {

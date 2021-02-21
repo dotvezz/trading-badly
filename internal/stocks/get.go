@@ -18,7 +18,7 @@ func Get(ticker string, from, to time.Time) ([]Tick, error) {
 		Symbol:     ticker,
 		Start:      datetime.New(&from),
 		End:        datetime.New(&to),
-		Interval:   datetime.OneMin,
+		Interval:   datetime.FifteenMins,
 		IncludeExt: false,
 	})
 	if itr.Err() != nil {

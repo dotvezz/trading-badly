@@ -22,7 +22,11 @@ type endpoints struct {
 func initEndpoints() endpoints {
 	return endpoints{
 		chart: func(args []string, ctx context.Context, request messaging.Request, response *messaging.Response) error {
-			ticks, err := stocks.Get(args[0], time.Now().Add(-24*time.Hour), time.Now())
+			ticks, err := stocks.Get(
+				args[0],
+				time.Date(2021, 02, 16, 0, 30, 0, 0, time.Now().Location()),
+				time.Date(2021, 02, 19, 24, 00, 0, 0, time.Now().Location()),
+			)
 			if err != nil {
 				return err
 			}
@@ -30,7 +34,11 @@ func initEndpoints() endpoints {
 			return err
 		},
 		csv: func(args []string, ctx context.Context, request messaging.Request, response *messaging.Response) error {
-			ticks, err := stocks.Get(args[0], time.Now().Add(-24*time.Hour), time.Now())
+			ticks, err := stocks.Get(
+				args[0],
+				time.Date(2021, 02, 16, 0, 30, 0, 0, time.Now().Location()),
+				time.Date(2021, 02, 19, 24, 00, 0, 0, time.Now().Location()),
+			)
 			if err != nil {
 				return err
 			}
